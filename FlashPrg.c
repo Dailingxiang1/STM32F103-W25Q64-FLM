@@ -10,7 +10,10 @@
 #define SPI1_SR          (*((volatile uint32_t *)0x40013008))
 #define SPI1_DR          (*((volatile uint32_t *)0x4001300C))
 
-
+#define RCC_CR       (*((volatile uint32_t *)0x40021000))
+#define RCC_CFGR     (*((volatile uint32_t *)0x40021004))
+#define FLASH_ACR    (*((volatile uint32_t *)0x40022000))
+	
 /* Cortex-M 核心寄存器用于开关中断 */
 #define __disable_irq()  __asm volatile ("cpsid i" : : : "memory")
 
@@ -91,7 +94,8 @@ int Init(unsigned long adr, unsigned long clk, unsigned long fnc)
     SPI1_CR1 = 0;
     // BR=256分频, MSTR=1, CPOL=1, CPHA=1, SSM=1, SSI=1, SPE=1
     //SPI1_CR1 |= (0x7 << 3) | (1 << 2) | (1 << 1) | (1 << 0) | (1 << 9) | (1 << 8) | (1 << 6);
-    SPI1_CR1 |= (1 << 3) | (1 << 2) | (1 << 1) | (1 << 0) | (1 << 9) | (1 << 8) | (1 << 6);
+		//Bits 5:3  用于分频
+    SPI1_CR1 |=   (1 << 2) | (1 << 1) | (1 << 0) | (1 << 9) | (1 << 8) | (1 << 6);   //4M SPI
     delay_us(100);
     return 0;
 }
