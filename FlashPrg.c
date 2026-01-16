@@ -92,10 +92,8 @@ int Init(unsigned long adr, unsigned long clk, unsigned long fnc)
 
     // 3. 配置 SPI1
     SPI1_CR1 = 0;
-    // BR=256分频, MSTR=1, CPOL=1, CPHA=1, SSM=1, SSI=1, SPE=1
-    //SPI1_CR1 |= (0x7 << 3) | (1 << 2) | (1 << 1) | (1 << 0) | (1 << 9) | (1 << 8) | (1 << 6);
-		//Bits 5:3  用于分频
-    SPI1_CR1 |=   (1 << 2) | (1 << 1) | (1 << 0) | (1 << 9) | (1 << 8) | (1 << 6);   //4M SPI
+    // BR=2分频, MSTR=1, CPOL=1, CPHA=1, SSM=1, SSI=1, SPE=1
+    SPI1_CR1 |=   (0 << 3) | (1 << 2) | (1 << 1) | (1 << 0) | (1 << 9) | (1 << 8) | (1 << 6);   //4M SPI
     delay_us(100);
     return 0;
 }
